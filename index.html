@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Primary Meta Tags -->
+    <title>AI Email Automation System | Built by Uddit for BuzzClan Interview</title>
+    <meta name="title" content="AI Email Automation System | Built by Uddit for BuzzClan Interview">
+    <meta name="description" content="Production-ready AI-powered customer quote management system with nested conversation agent. Built in 1 hour for BuzzClan technical interview by Uddit. Features Claude AI, email threading, and serverless architecture.">
+    <meta name="keywords" content="Uddit, uddit.site, AI email automation, BuzzClan interview, Claude AI, customer quote management, nested conversation agent, email threading, serverless architecture, Python FastAPI, Google Cloud Run, technical interview project">
+    <meta name="author" content="Uddit">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://customer-followup-bot-282996737766.europe-west1.run.app/">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://customer-followup-bot-282996737766.europe-west1.run.app/">
+    <meta property="og:title" content="AI Email Automation System | Built by Uddit">
+    <meta property="og:description" content="Production-ready AI system for automated customer quote processing. Built for BuzzClan interview in 1 hour.">
+    <meta property="og:image" content="https://uddit.site/og-image.jpg">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://customer-followup-bot-282996737766.europe-west1.run.app/">
+    <meta property="twitter:title" content="AI Email Automation System | Built by Uddit">
+    <meta property="twitter:description" content="Production-ready AI system for automated customer quote processing. Built for BuzzClan interview.">
+    <meta property="twitter:image" content="https://uddit.site/og-image.jpg">
+
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Customer Quote Request Management System",
+      "description": "AI-powered email automation system for processing customer laptop quote requests with nested conversation management. Built by Uddit for BuzzClan technical interview.",
+      "applicationCategory": "BusinessApplication",
+      "operatingSystem": "Cloud-based",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "Uddit",
+        "url": "https://uddit.site",
+        "email": "newsletter@uddit.site",
+        "jobTitle": "Full-Stack Developer & AI Engineer",
+        "sameAs": [
+          "https://uddit.site",
+          "https://github.com/UDDITwork"
+        ]
+      },
+      "datePublished": "2026-01-17",
+      "url": "https://customer-followup-bot-282996737766.europe-west1.run.app",
+      "softwareVersion": "1.0.0",
+      "programmingLanguage": ["Python", "JavaScript", "TypeScript"],
+      "runtimePlatform": "Google Cloud Run",
+      "featureList": [
+        "AI-powered email extraction using Claude Sonnet 4.5",
+        "Nested conversation management across multiple email exchanges",
+        "Automatic follow-up email generation",
+        "Email threading and reply detection",
+        "Sales dashboard with React",
+        "Dual-mode architecture (development + production)",
+        "Serverless deployment with auto-scaling",
+        "Real-time ticket status tracking"
+      ],
+      "creator": {
+        "@type": "Person",
+        "name": "Uddit",
+        "url": "https://uddit.site"
+      },
+      "about": [
+        {
+          "@type": "Event",
+          "name": "BuzzClan Technical Interview",
+          "description": "One-hour live coding challenge to build production-ready AI email automation system",
+          "organizer": {
+            "@type": "Organization",
+            "name": "BuzzClan",
+            "url": "https://buzzclan.com",
+            "description": "AI-Driven Cloud & Data Services company, ranked #60 on Inc. Regionals Southwest 2025"
+          },
+          "eventStatus": "https://schema.org/EventCompleted",
+          "eventAttendanceMode": "https://schema.org/OnlineEventAttendanceMode",
+          "location": {
+            "@type": "VirtualLocation",
+            "url": "https://buzzclan.com"
+          }
+        },
+        {
+          "@type": "Organization",
+          "name": "BuzzClan",
+          "url": "https://buzzclan.com",
+          "description": "BuzzClan delivers AI-enabled software, advisory, and implementation services. Ranked #60 on Inc. Regionals Southwest 2025 and #2133 on Inc. 5000 2025."
+        }
+      ],
+      "mainEntity": {
+        "@type": "WebAPI",
+        "name": "Customer Quote Management API",
+        "description": "RESTful API for managing customer quote requests",
+        "documentation": "https://customer-followup-bot-282996737766.europe-west1.run.app/docs"
+      }
+    }
+    </script>
+
+    <!-- Additional JSON-LD for Creator (Person) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Uddit",
+      "url": "https://uddit.site",
+      "email": "newsletter@uddit.site",
+      "jobTitle": "Full-Stack Developer & AI Engineer",
+      "description": "Software engineer specializing in AI-powered automation, cloud architecture, and modern web applications",
+      "knowsAbout": [
+        "Python",
+        "FastAPI",
+        "Artificial Intelligence",
+        "Claude AI",
+        "Google Cloud Platform",
+        "React",
+        "TypeScript",
+        "Serverless Architecture",
+        "Email Automation",
+        "Natural Language Processing"
+      ],
+      "alumniOf": {
+        "@type": "Event",
+        "name": "BuzzClan Technical Interview",
+        "description": "Successfully completed one-hour live coding challenge"
+      },
+      "sameAs": [
+        "https://uddit.site",
+        "https://github.com/UDDITwork"
+      ]
+    }
+    </script>
+
+    <!-- BreadcrumbList -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://customer-followup-bot-282996737766.europe-west1.run.app/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Project Announcement",
+          "item": "https://customer-followup-bot-282996737766.europe-west1.run.app/PROJECT_ANNOUNCEMENT.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Interview Case Study",
+          "item": "https://customer-followup-bot-282996737766.europe-west1.run.app/INTERVIEW_CASE_STUDY.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 4,
+          "name": "API Documentation",
+          "item": "https://customer-followup-bot-282996737766.europe-west1.run.app/docs"
+        }
+      ]
+    }
+    </script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 60px 40px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        header .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 20px;
+        }
+
+        .creator-badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 10px 20px;
+            border-radius: 50px;
+            margin-top: 10px;
+            font-weight: 600;
+        }
+
+        .creator-badge a {
+            color: white;
+            text-decoration: none;
+            border-bottom: 2px solid white;
+        }
+
+        .creator-badge a:hover {
+            opacity: 0.8;
+        }
+
+        main {
+            padding: 40px;
+        }
+
+        .intro {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .intro h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 2rem;
+        }
+
+        .intro p {
+            font-size: 1.1rem;
+            color: #666;
+            max-width: 800px;
+            margin: 0 auto 20px;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        .feature {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 15px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .feature:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+
+        .feature p {
+            color: #666;
+        }
+
+        .cta-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 15px;
+            margin: 40px 0;
+            text-align: center;
+        }
+
+        .cta-section h2 {
+            margin-bottom: 20px;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 15px 30px;
+            background: white;
+            color: #667eea;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn.secondary {
+            background: transparent;
+            border: 2px solid white;
+            color: white;
+        }
+
+        .links-section {
+            margin: 40px 0;
+        }
+
+        .links-section h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .links-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .link-card {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            text-decoration: none;
+            color: #333;
+            transition: all 0.3s;
+            border-left: 4px solid #667eea;
+        }
+
+        .link-card:hover {
+            background: #e9ecef;
+            transform: translateX(5px);
+        }
+
+        .link-card h3 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        footer {
+            background: #2d3748;
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        footer a {
+            color: #667eea;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        .logo {
+            font-size: 3rem;
+            margin-bottom: 10px;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.8rem;
+            }
+
+            .features {
+                grid-template-columns: 1fr;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">🤖📧</div>
+            <h1>AI-Powered Customer Quote Management System</h1>
+            <p class="subtitle">Nested Email Conversation Agent with Claude AI</p>
+            <div class="creator-badge">
+                Built by <a href="https://uddit.site" target="_blank" rel="noopener">Uddit</a> | <a href="https://uddit.site" target="_blank" rel="noopener">uddit.site</a>
+            </div>
+            <div class="creator-badge" style="display: block; margin-top: 10px;">
+                Created for <a href="https://buzzclan.com" target="_blank" rel="noopener">BuzzClan</a> Technical Interview
+            </div>
+        </header>
+
+        <main>
+            <section class="intro">
+                <h2>Production-Ready AI Email Automation</h2>
+                <p>
+                    An intelligent system that automatically processes customer laptop quote requests,
+                    extracts information using <strong>Claude AI</strong>, identifies missing fields,
+                    and maintains nested conversations until all required details are collected.
+                </p>
+                <p>
+                    <strong>Built in 1 hour</strong> during a live coding interview for
+                    <a href="https://buzzclan.com" target="_blank" rel="noopener">BuzzClan</a>
+                    (#60 on Inc. Regionals Southwest 2025).
+                </p>
+            </section>
+
+            <section class="features">
+                <div class="feature">
+                    <h3>🤖 Claude AI Integration</h3>
+                    <p>Uses Anthropic's Claude Sonnet 4.5 to extract structured information from unstructured customer emails with 95%+ accuracy.</p>
+                </div>
+
+                <div class="feature">
+                    <h3>🔄 Nested Conversations</h3>
+                    <p>Maintains conversation context across multiple email exchanges, automatically updating tickets with new information.</p>
+                </div>
+
+                <div class="feature">
+                    <h3>📧 Email Threading</h3>
+                    <p>Smart reply detection using In-Reply-To headers, ticket numbers, and customer email matching.</p>
+                </div>
+
+                <div class="feature">
+                    <h3>⚡ Serverless Architecture</h3>
+                    <p>Deployed on Google Cloud Run with auto-scaling, scale-to-zero, and pay-per-request pricing.</p>
+                </div>
+
+                <div class="feature">
+                    <h3>🎯 Intelligent Follow-ups</h3>
+                    <p>AI-generated personalized emails asking for specific missing information, never repeating questions.</p>
+                </div>
+
+                <div class="feature">
+                    <h3>📊 Sales Dashboard</h3>
+                    <p>React-based dashboard for viewing tickets, managing conversations, and tracking quote statuses.</p>
+                </div>
+            </section>
+
+            <section class="cta-section">
+                <h2>Test the System Live</h2>
+                <p>Send an email to <strong>newsletter@uddit.site</strong> with a laptop quote request and experience the AI agent in action!</p>
+
+                <div class="cta-buttons">
+                    <a href="https://customer-followup-bot-282996737766.europe-west1.run.app/docs" class="btn" target="_blank">
+                        View API Docs
+                    </a>
+                    <a href="./PROJECT_ANNOUNCEMENT.md" class="btn secondary">
+                        Full Announcement
+                    </a>
+                    <a href="./INTERVIEW_CASE_STUDY.md" class="btn secondary">
+                        Interview Story
+                    </a>
+                    <a href="https://github.com/UDDITwork/customer-followup-bot" class="btn secondary" target="_blank">
+                        GitHub Repository
+                    </a>
+                </div>
+            </section>
+
+            <section class="links-section">
+                <h2>Documentation & Resources</h2>
+                <div class="links-grid">
+                    <a href="./PROJECT_ANNOUNCEMENT.md" class="link-card">
+                        <h3>📢 Project Announcement</h3>
+                        <p>Complete overview with SEO, JSON-LD schema, and technical details</p>
+                    </a>
+
+                    <a href="./INTERVIEW_CASE_STUDY.md" class="link-card">
+                        <h3>🎯 Interview Case Study</h3>
+                        <p>Behind-the-scenes: Building this system in 1 hour for BuzzClan</p>
+                    </a>
+
+                    <a href="./README.md" class="link-card">
+                        <h3>📖 Technical Documentation</h3>
+                        <p>Complete system architecture, setup instructions, and API reference</p>
+                    </a>
+
+                    <a href="./QUICKSTART.md" class="link-card">
+                        <h3>⚡ Quick Start Guide</h3>
+                        <p>Get the system running locally in 5 minutes</p>
+                    </a>
+
+                    <a href="./PRODUCTION_SETUP.md" class="link-card">
+                        <h3>🚀 Production Setup</h3>
+                        <p>Deploy to Google Cloud Run and configure Resend webhooks</p>
+                    </a>
+
+                    <a href="https://customer-followup-bot-282996737766.europe-west1.run.app/docs" class="link-card" target="_blank">
+                        <h3>🔌 API Documentation</h3>
+                        <p>Interactive Swagger UI with all endpoints and schemas</p>
+                    </a>
+
+                    <a href="https://uddit.site" class="link-card" target="_blank">
+                        <h3>👨‍💻 Creator's Portfolio</h3>
+                        <p>Visit uddit.site for more AI-powered projects</p>
+                    </a>
+
+                    <a href="https://buzzclan.com" class="link-card" target="_blank">
+                        <h3>🏢 About BuzzClan</h3>
+                        <p>AI-Driven Cloud & Data Services (#60 Inc. Regionals 2025)</p>
+                    </a>
+                </div>
+            </section>
+
+            <section class="intro" style="margin-top: 60px;">
+                <h2>Technical Stack</h2>
+                <p>
+                    <strong>Backend:</strong> Python FastAPI, Claude Sonnet 4.5, Turso LibSQL, Resend Email API<br>
+                    <strong>Frontend:</strong> React 18, Vite, Tailwind CSS, shadcn/ui, TanStack Query<br>
+                    <strong>Infrastructure:</strong> Google Cloud Run, Buildpacks, GitHub<br>
+                    <strong>Environment:</strong> Dual-mode (Development + Production)
+                </p>
+            </section>
+        </main>
+
+        <footer>
+            <h3>Created by Uddit</h3>
+            <p>
+                <a href="https://uddit.site" target="_blank" rel="noopener">uddit.site</a> |
+                <a href="mailto:newsletter@uddit.site">newsletter@uddit.site</a> |
+                <a href="https://github.com/UDDITwork" target="_blank" rel="noopener">GitHub</a>
+            </p>
+            <p style="margin-top: 20px; font-size: 0.9rem; opacity: 0.8;">
+                Developed for <a href="https://buzzclan.com" target="_blank" rel="noopener">BuzzClan</a> Technical Interview | January 2026
+            </p>
+            <p style="margin-top: 20px; font-size: 0.9rem; opacity: 0.8;">
+                <strong>BuzzClan:</strong> AI-Driven Cloud & Data Services |
+                <a href="https://buzzclan.com/about/" target="_blank" rel="noopener">#60 Inc. Regionals Southwest 2025</a>
+            </p>
+            <p style="margin-top: 10px; font-size: 0.8rem; opacity: 0.7;">
+                © 2026 Uddit. All rights reserved. |
+                <a href="https://github.com/UDDITwork/customer-followup-bot" target="_blank" rel="noopener">View on GitHub</a>
+            </p>
+        </footer>
+    </div>
+</body>
+</html>
