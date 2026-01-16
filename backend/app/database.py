@@ -109,6 +109,64 @@ def initialize_database():
     print("[SUCCESS] Database schema initialized successfully")
 
 
+def find_ticket_by_email_headers(
+    in_reply_to: str = None,
+    subject: str = None,
+    customer_email: str = None
+) -> int:
+    """
+    Find existing ticket by email threading headers.
+
+    Priority order:
+    1. Match in_reply_to against email_threads.email_message_id
+    2. Extract ticket number from subject (e.g., "Re: TKT-20260117-0001")
+    3. Find most recent ticket from customer_email (within last 7 days)
+
+    Returns: ticket_id or None if no match
+    """
+    client = get_db_client()
+
+    # Priority 1: Match by In-Reply-To header
+    if in_reply_to:
+        result = client.execute(
+            "SELECT ticket_id FROM email_threads WHERE email_message_id = ? LIMIT 1",
+            [in_reply_to]
+        )
+        if result.rows:
+            return result.rows[0][0]
+
+    # Priority 2: Extract ticket number from subject
+    if subject:
+        import re
+        # Look for pattern like "Re: TKT-20260117-0001" or "TKT-20260117-0001"
+        match = re.search(r'TKT-\d{8}-\d{4}', subject)
+        if match:
+            ticket_number = match.group(0)
+            result = client.execute(
+                "SELECT id FROM tickets WHERE ticket_number = ? LIMIT 1",
+                [ticket_number]
+            )
+            if result.rows:
+                return result.rows[0][0]
+
+    # Priority 3: Find most recent ticket from customer (within 7 days)
+    if customer_email:
+        result = client.execute(
+            """
+            SELECT id FROM tickets
+            WHERE customer_email = ?
+            AND datetime(created_at) > datetime('now', '-7 days')
+            ORDER BY created_at DESC
+            LIMIT 1
+            """,
+            [customer_email]
+        )
+        if result.rows:
+            return result.rows[0][0]
+
+    return None
+
+
 if __name__ == "__main__":
     # Run this file directly to initialize the database
     initialize_database()

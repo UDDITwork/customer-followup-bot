@@ -4,10 +4,12 @@ API routes for email processing (webhooks and development endpoints).
 
 from fastapi import APIRouter, HTTPException, Request, Body
 from typing import Dict, List
+import json
 from app.models.ticket import MockEmailCreate
 from app.services import ticket_service
 from app.services.email_service import email_service
 from app.config import settings
+from app.database import find_ticket_by_email_headers
 
 router = APIRouter(tags=["emails"])
 
@@ -30,33 +32,69 @@ async def resend_webhook(request: Request):
         # Parse Resend webhook payload
         payload = await request.json()
 
+        # Log payload for debugging (helps understand Resend's format)
+        print(f"[WEBHOOK] Received payload: {json.dumps(payload, indent=2)[:500]}")
+
         # Extract email details from Resend webhook
-        # (Structure depends on Resend's webhook format)
-        email_from = payload.get("from", {}).get("email", "")
+        # Handle different possible payload structures
+        email_from = payload.get("from", {})
+        if isinstance(email_from, dict):
+            email_from = email_from.get("email", "")
+
         email_subject = payload.get("subject", "")
         email_body = payload.get("text", "") or payload.get("html", "")
         message_id = payload.get("message_id", "")
 
-        # Check if this is a reply to an existing ticket
-        # You can implement logic here to match replies using:
-        # - In-Reply-To header
-        # - References header
-        # - Email subject containing ticket number
-        # For now, we'll create a new ticket
+        # Extract threading headers for reply detection
+        headers = payload.get("headers", {})
+        in_reply_to = payload.get("in_reply_to") or headers.get("in-reply-to") or headers.get("In-Reply-To")
+        references = payload.get("references") or headers.get("references") or headers.get("References")
 
-        ticket = ticket_service.create_ticket_from_email(
-            email_body=email_body,
-            email_subject=email_subject,
-            customer_email=email_from,
-            email_message_id=message_id
+        print(f"[WEBHOOK] Email from: {email_from}, Subject: {email_subject}")
+        print(f"[WEBHOOK] In-Reply-To: {in_reply_to}")
+
+        # Check if this is a reply to an existing ticket
+        existing_ticket_id = find_ticket_by_email_headers(
+            in_reply_to=in_reply_to,
+            subject=email_subject,
+            customer_email=email_from
         )
 
-        return {
-            "success": True,
-            "ticket_id": ticket.id,
-            "ticket_number": ticket.ticket_number,
-            "status": ticket.status
-        }
+        if existing_ticket_id:
+            # Reply to existing conversation - update ticket
+            print(f"[WEBHOOK] Found existing ticket: {existing_ticket_id}")
+            ticket = ticket_service.update_ticket_from_reply(
+                ticket_id=existing_ticket_id,
+                email_body=email_body,
+                email_subject=email_subject
+            )
+
+            return {
+                "success": True,
+                "type": "reply",
+                "ticket_id": ticket.id,
+                "ticket_number": ticket.ticket_number,
+                "status": ticket.status,
+                "message": "Ticket updated from customer reply"
+            }
+        else:
+            # New conversation - create new ticket
+            print(f"[WEBHOOK] Creating new ticket")
+            ticket = ticket_service.create_ticket_from_email(
+                email_body=email_body,
+                email_subject=email_subject,
+                customer_email=email_from,
+                email_message_id=message_id
+            )
+
+            return {
+                "success": True,
+                "type": "new_ticket",
+                "ticket_id": ticket.id,
+                "ticket_number": ticket.ticket_number,
+                "status": ticket.status,
+                "message": f"New ticket created: {ticket.ticket_number}"
+            }
 
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
