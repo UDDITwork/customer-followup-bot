@@ -35,23 +35,39 @@ async def resend_webhook(request: Request):
         # Log payload for debugging (helps understand Resend's format)
         print(f"[WEBHOOK] Received payload: {json.dumps(payload, indent=2)[:500]}")
 
-        # Extract email details from Resend webhook
-        # Handle different possible payload structures
-        email_from = payload.get("from", {})
-        if isinstance(email_from, dict):
-            email_from = email_from.get("email", "")
+        # Check event type
+        event_type = payload.get("type", "")
+        print(f"[WEBHOOK] Event type: {event_type}")
 
-        email_subject = payload.get("subject", "")
-        email_body = payload.get("text", "") or payload.get("html", "")
-        message_id = payload.get("message_id", "")
+        # Only process email.received events
+        if event_type != "email.received":
+            print(f"[WEBHOOK] Ignoring event type: {event_type}")
+            return {"success": True, "message": f"Ignored event type: {event_type}"}
+
+        # For email.received, data is nested under "data" key
+        email_data = payload.get("data", {})
+
+        # Extract email details from the data object
+        email_from = email_data.get("from", "")
+        email_to = email_data.get("to", [])
+        if isinstance(email_to, list) and len(email_to) > 0:
+            email_to = email_to[0]
+
+        email_subject = email_data.get("subject", "")
+
+        # Get email body - try both text and html
+        email_body = email_data.get("text", "") or email_data.get("html", "")
+
+        message_id = email_data.get("email_id", "") or email_data.get("message_id", "")
 
         # Extract threading headers for reply detection
-        headers = payload.get("headers", {})
-        in_reply_to = payload.get("in_reply_to") or headers.get("in-reply-to") or headers.get("In-Reply-To")
-        references = payload.get("references") or headers.get("references") or headers.get("References")
+        headers = email_data.get("headers", {})
+        in_reply_to = email_data.get("in_reply_to") or headers.get("in-reply-to") or headers.get("In-Reply-To")
+        references = email_data.get("references") or headers.get("references") or headers.get("References")
 
-        print(f"[WEBHOOK] Email from: {email_from}, Subject: {email_subject}")
+        print(f"[WEBHOOK] Email from: {email_from}, To: {email_to}, Subject: {email_subject}")
         print(f"[WEBHOOK] In-Reply-To: {in_reply_to}")
+        print(f"[WEBHOOK] Body preview: {email_body[:100] if email_body else 'NO BODY'}")
 
         # Check if this is a reply to an existing ticket
         existing_ticket_id = find_ticket_by_email_headers(
@@ -97,6 +113,9 @@ async def resend_webhook(request: Request):
             }
 
     except Exception as e:
+        print(f"[WEBHOOK ERROR] {str(e)}")
+        import traceback
+        traceback.print_exc()
         raise HTTPException(status_code=500, detail=str(e))
 
 
